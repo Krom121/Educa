@@ -1,0 +1,5 @@
+settings.py
+Pipfile
+Pipfile.lock
+migrations
+db.sqlite3
