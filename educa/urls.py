@@ -9,4 +9,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CourseListView.as_view(), name='course_list'),
     path('course/', include('courses.urls')),
+    path('students/', include('students.urls')),
 ]
