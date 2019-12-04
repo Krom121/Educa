@@ -66,16 +66,14 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
 
     def get(self, request, *args, **kwargs):
         formset = self.get_formset()
-        return self.render_to_response({'course': self.course,
-                                        'formset': formset})
+        return self.render_to_response({'course': self.course,'formset': formset})
 
     def post(self, request, *args, **kwargs):
         formset = self.get_formset(data=request.POST)
         if formset.is_valid():
             formset.save()
             return redirect('manage_course_list')
-        return self.render_to_response({'course': self.course,
-                                        'formset': formset})
+        return self.render_to_response({'course': self.course,'formset': formset})
 
 class ContentCreateUpdateView(TemplateResponseMixin, View):
     module = None
@@ -94,9 +92,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         return Form(*args, **kwargs)
 
     def dispatch(self, request, module_id, model_name, id=None):
-        self.module = get_object_or_404(Module,
-                                       id=module_id,
-                                       course__owner=request.user)
+        self.module = get_object_or_404(Module,id=module_id,course__owner=request.user)
         self.model = self.get_model(model_name)
         if id:
             self.obj = get_object_or_404(self.model,
@@ -108,8 +104,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
 
     def get(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
-        return self.render_to_response({'form': form,
-                                    'object': self.obj})
+        return self.render_to_response({'form': form,'object': self.obj})
 
     def post(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj, data=request.POST, files=request.FILES)
